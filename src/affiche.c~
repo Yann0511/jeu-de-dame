@@ -1,0 +1,101 @@
+#include<stdio.h>
+#include<stdlib.h>
+#include"../include/structure.h"
+
+void affiche_ligne(int i,int damier[8][8])
+{
+  int j;
+  printf(" %20d ",i+1) ;
+  for(j=0 ;j<8 ;j++)
+    {
+      switch(damier[i][j])
+	{
+	case PION_BLANC :
+	  printf("| b ") ;
+	  break ;
+	case PION_NOIR :
+	  printf("| n ") ;
+	  break ;
+	case DAME_NOIR :
+	  printf("|[N]") ;
+	  break ;
+	case DAME_BLANC :
+	  printf("|[B]") ;
+	  break ;
+	default :
+	  printf("|   ") ;
+	  break ;
+	}
+    }
+  printf("|%2d\n",i+1) ;
+  printf("                      |-------------------------------|\n") ;
+}
+
+/*
+Fonction qui affiche le damier en totalité
+*/
+
+void affiche_damier(int damier[8][8])
+{
+  int i;
+  printf("                        a   b   c   d   e   f   g   h  \n");
+  printf("                      |-------------------------------|\n") ;
+  for(i=0 ;i<8 ;i++)
+    affiche_ligne(i,damier) ;
+  printf("                        a   b   c   d   e   f   g   h  \n") ;
+}
+
+
+/*
+  Initialisation du tableau
+*/
+void init_damier(damier* jeu)
+{
+  jeu->nb_blanc = 12 ;
+  jeu->nb_noir = 12 ;
+  int i,j ;
+  //On initialise le tableau
+  for(i=0 ;i<8 ;i++)
+    for(j=0 ;j<8 ;j++)
+      jeu->plateau[i][j] = 0 ;
+  //On remplie la partie haute du damier par des pions noirs
+  for(i=0 ;i<3 ;i++)
+    {
+      //Si i est pair, la première case doit être noir (active)
+      if(i%2 == 0) j=0 ;
+      else j=1 ;
+      for(j ;j<8 ;j+=2)
+	jeu->plateau[i][j] = PION_NOIR ;
+    }
+  //On remplie la partie basse du damier par des pions blancs
+  for(i=5 ;i<8 ;i++)
+    {
+      //Si i est pair, la premier case doit être noir (active)
+      if(i%2 == 0) j=0 ;
+      else j=1 ;
+      for(j ;j<8 ;j+=2)
+	jeu->plateau[i][j] = PION_BLANC ;
+    }
+}
+
+/*
+int main ()
+{
+  int i=0, j=0;
+  damier jeu ;
+  
+  init_damier(&jeu);
+  for(i=0; i< 8; i++)
+    {
+      for (j=0 ; j<8 ; j++)
+ 
+   tabr[i][j]= jeu.plateau[i][j];
+    }
+
+  affiche_damier(tabr) ;
+
+  return 0 ;
+}
+*/
+
+  
